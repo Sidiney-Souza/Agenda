@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ContatoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,3 +23,18 @@ Route::get('/dashboard', function () {
 })->middleware(['auth'])->name('dashboard');
 
 require __DIR__.'/auth.php';
+
+
+Route::get('admin', function () {
+    return view('admin.index');
+})->middleware(['auth', 'admin']);
+
+
+
+Route::get('sem_permissao', function () {
+    return view('dont');
+    })->name('sem_permissao');
+
+
+
+Route::resource('/contatos  ', ContatoController::class);
