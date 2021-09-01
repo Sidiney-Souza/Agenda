@@ -9,6 +9,19 @@ class Contato extends Model
 {
     use HasFactory;
 
+        protected $fillable = [
+        'user_id',
+        'name',
+        'number',
+        'endereço',
+        'email',
+        'foto',
+        'date_de_nasc',
+        'data_ultimo_acesso',
+    ];
+    
+    
+    
     public function user()  {
         return $this->belongsTo(User::class);
     }

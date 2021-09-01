@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Contato;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ContatoController extends Controller
 {
@@ -14,7 +15,14 @@ class ContatoController extends Controller
      */
     public function index()
     {
-        //
+        
+        $user = Auth::user();
+        
+        $contatos = $user->contatos;
+        
+        
+        return view('contatos.index', ['contatos'=> $contatos]);
+        
     }
 
     /**
@@ -24,7 +32,7 @@ class ContatoController extends Controller
      */
     public function create()
     {
-        //
+        return view('contatos.create');
     }
 
     /**
@@ -35,7 +43,21 @@ class ContatoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+        
+        
+        if ($request->hasFile('foto')){
+            $data['foto'] = $request->foto->store('contato');
+        }
+        
+        $data['user_id'] = Auth::user()->id;
+        $data['data_ultimo_acesso'] = date("Y-m-d H:i:s");
+        
+        if(Contato::create($data)){
+            return redirect()->route('dashboard')->with('msg', "Contact {$request->name} Save");
+        }else{ 
+            return redirect()->route('dashboard')->with('msg', "Contact {$request->name} don't was Save");
+        }
     }
 
     /**

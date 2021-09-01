@@ -37,4 +37,4 @@ Route::get('sem_permissao', function () {
 
 
 
-Route::resource('/contatos  ', ContatoController::class);
+Route::resource('/contatos', ContatoController::class)->middleware('auth');
