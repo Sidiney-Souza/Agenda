@@ -36,5 +36,6 @@ Route::get('sem_permissao', function () {
     })->name('sem_permissao');
 
 
-
 Route::resource('/contatos', ContatoController::class)->middleware('auth');
+
+Route::post('contatos/search', [ContatoController::class, 'search'])->name('contatos.search');

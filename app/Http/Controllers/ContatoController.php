@@ -104,4 +104,16 @@ class ContatoController extends Controller
     {
         //
     }
+
+
+    public function search(Request $request) {
+        if ($request->name) {
+            $contatos = (new Contato())->buscar($request->name);
+        } else {
+            $contatos = Contato::all();
+        }
+        
+        return view('contatos.contatos', ['contatos' => $contatos]);
+    }
+    
 }

@@ -22,13 +22,16 @@ class Contato extends Model
     
     
     
-    public function user()  {
+    public function user() {
         return $this->belongsTo(User::class);
     }
- 
-    public function telefone()  {
+
+    public function telefone() {
         return $this->hasMany(Telefone::class);
     }
-    
-    
+
+    public function buscar(string $name = '') {
+        return $this->where('name', 'like', "%$name%")->get();
+    }
+
 }
